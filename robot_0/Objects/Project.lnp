@@ -33,6 +33,7 @@
 ".\objects\servo.o"
 ".\objects\pwm.o"
 ".\objects\input.o"
+".\objects\bh1750.o"
 ".\objects\main.o"
 ".\objects\stm32f10x_it.o"
 --strict --scatter ".\Objects\Project.sct"

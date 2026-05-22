@@ -40,3 +40,4 @@
 .\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main.o: .\Hardware\bh1750.h
