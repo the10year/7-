@@ -742,6 +742,26 @@
               <FileType>1</FileType>
               <FilePath>.\Hardware\bh1750.c</FilePath>
             </File>
+            <File>
+              <FileName>bh1750.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\bh1750.h</FilePath>
+            </File>
+            <File>
+              <FileName>noise_sensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\noise_sensor.h</FilePath>
+            </File>
+            <File>
+              <FileName>hcsr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\hcsr04.c</FilePath>
+            </File>
+            <File>
+              <FileName>hcsr04.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\hcsr04.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

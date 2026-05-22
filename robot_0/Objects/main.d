@@ -42,3 +42,4 @@
 .\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: .\Hardware\bh1750.h
 .\objects\main.o: .\Hardware\noise_sensor.h
+.\objects\main.o: .\Hardware\hcsr04.h

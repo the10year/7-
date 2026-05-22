@@ -1,7 +1,7 @@
+#include "stm32f10x_adc.h"
 #include "bh1750.h"
 #include "Delay.h"
 
-/* ???? - PB12/PB13/PB14 */
 #define BH_SCL_PORT   GPIOB
 #define BH_SCL_PIN    GPIO_Pin_12
 
@@ -72,29 +72,7 @@ static u8 bh_wait_ack(void)
     return 0;
 }
 
-static void bh_ack(void)
-{
-    bh_sda_out();
-    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);   // ??? SCL
-    Delay_us(2);
-    GPIO_ResetBits(BH_SDA_PORT, BH_SDA_PIN);    // SDA LOW = ACK
-    Delay_us(2);
-    GPIO_SetBits(BH_SCL_PORT, BH_SCL_PIN);
-    Delay_us(5);
-    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);
-}
 
-static void bh_nack(void)
-{
-    bh_sda_out();
-    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);   // ??? SCL
-    Delay_us(2);
-    GPIO_SetBits(BH_SDA_PORT, BH_SDA_PIN);      // SDA HIGH = NACK
-    Delay_us(2);
-    GPIO_SetBits(BH_SCL_PORT, BH_SCL_PIN);
-    Delay_us(5);
-    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);
-}
 
 static void bh_write_byte(u8 data)
 {
