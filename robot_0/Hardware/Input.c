@@ -8,9 +8,9 @@ void Input_Init(void)
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5| GPIO_Pin_13| GPIO_Pin_10;
@@ -21,10 +21,10 @@ void Input_Init(void)
 uint8_t Input_GetNum(void)
 {
 	uint8_t KeyNum = 0;
-	if (GPIO_ReadInputDataBit(GPIOA ,GPIO_Pin_5) == 0)
+	if (GPIO_ReadInputDataBit(GPIOB ,GPIO_Pin_7) == 0)
 	{
 		Delay_ms(20);
-		while (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5) == 0);
+		while (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7) == 0);
 		Delay_ms(20);
 		KeyNum = 1;
 	}

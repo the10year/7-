@@ -318,7 +318,7 @@ int main(void)
         }
 
         /************************ 离地检测滑动动作控制 ************************/
-        if (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5) == 1)
+        if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7) == 1)
         {
             if(Huadong_State==0)
             { Forward_State=0;Back_State=0;Left_State=0;Right_State=0;Huadong_State=1;Huadong_Step=0;step_delay=0; }

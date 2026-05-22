@@ -130,9 +130,22 @@ static u8 bh_read_byte(u8 ack)
             data |= 0x01;
         Delay_us(5);
     }
-    /* ack/nack ?????? SCL ??? SDA */
-    if (ack) bh_ack();
-    else     bh_nack();
+    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);
+    Delay_us(2);
+    bh_sda_out();                    // ? ??8bit???????
+    Delay_us(2);
+    if (ack)
+    {
+        GPIO_ResetBits(BH_SDA_PORT, BH_SDA_PIN);  // ACK: SDA LOW
+    }
+    else
+    {
+        GPIO_SetBits(BH_SDA_PORT, BH_SDA_PIN);    // NACK: SDA HIGH
+    }
+    Delay_us(2);
+    GPIO_SetBits(BH_SCL_PORT, BH_SCL_PIN);        // SCL ??
+    Delay_us(5);
+    GPIO_ResetBits(BH_SCL_PORT, BH_SCL_PIN);
     return data;
 }
 
