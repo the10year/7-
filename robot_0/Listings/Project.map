@@ -279,6 +279,40 @@ Section Cross References
     input.o(i.Input_GetNum) refers to delay.o(i.Delay_ms) for Delay_ms
     input.o(i.Input_Init) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     input.o(i.Input_Init) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to noise_sensor.o(i.Noise_Sensor_GetFilteredADC) for Noise_Sensor_GetFilteredADC
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
+    noise_sensor.o(i.Noise_Sensor_GetDB) refers to faddsub_clz.o(x$fpl$fadd) for __aeabi_fadd
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetFilteredADC) for Noise_Sensor_GetFilteredADC
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to fflt_clz.o(x$fpl$ffltu) for __aeabi_ui2f
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetDB) for Noise_Sensor_GetDB
+    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetLevel) for Noise_Sensor_GetLevel
+    noise_sensor.o(i.Noise_Sensor_GetFilteredADC) refers to delay.o(i.Delay_us) for Delay_us
+    noise_sensor.o(i.Noise_Sensor_GetFilteredADC) refers to noise_sensor.o(.data) for ADC_ConvertedValue
+    noise_sensor.o(i.Noise_Sensor_GetLevel) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd) for RCC_AHBPeriphClockCmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_DeInit) for DMA_DeInit
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_Init) for DMA_Init
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_Cmd) for DMA_Cmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_Init) for ADC_Init
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_RegularChannelConfig) for ADC_RegularChannelConfig
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_DMACmd) for ADC_DMACmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_Cmd) for ADC_Cmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_ResetCalibration) for ADC_ResetCalibration
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_GetResetCalibrationStatus) for ADC_GetResetCalibrationStatus
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_StartCalibration) for ADC_StartCalibration
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_GetCalibrationStatus) for ADC_GetCalibrationStatus
+    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_SoftwareStartConvCmd) for ADC_SoftwareStartConvCmd
+    noise_sensor.o(i.Noise_Sensor_Init) refers to noise_sensor.o(.data) for ADC_ConvertedValue
     bh1750.o(i.bh1750_get_lux) refers to bh1750.o(i.bh_start) for bh_start
     bh1750.o(i.bh1750_get_lux) refers to bh1750.o(i.bh_write_byte) for bh_write_byte
     bh1750.o(i.bh1750_get_lux) refers to bh1750.o(i.bh_wait_ack) for bh_wait_ack
@@ -329,40 +363,6 @@ Section Cross References
     bh1750.o(i.bh_write_byte) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
     bh1750.o(i.bh_write_byte) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
     bh1750.o(i.bh_write_byte) refers to delay.o(i.Delay_us) for Delay_us
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to noise_sensor.o(i.Noise_Sensor_GetFilteredADC) for Noise_Sensor_GetFilteredADC
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
-    noise_sensor.o(i.Noise_Sensor_GetDB) refers to faddsub_clz.o(x$fpl$fadd) for __aeabi_fadd
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetFilteredADC) for Noise_Sensor_GetFilteredADC
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to fflt_clz.o(x$fpl$ffltu) for __aeabi_ui2f
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to ddiv.o(x$fpl$ddiv) for __aeabi_ddiv
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetDB) for Noise_Sensor_GetDB
-    noise_sensor.o(i.Noise_Sensor_GetData) refers to noise_sensor.o(i.Noise_Sensor_GetLevel) for Noise_Sensor_GetLevel
-    noise_sensor.o(i.Noise_Sensor_GetFilteredADC) refers to delay.o(i.Delay_us) for Delay_us
-    noise_sensor.o(i.Noise_Sensor_GetFilteredADC) refers to noise_sensor.o(.data) for ADC_ConvertedValue
-    noise_sensor.o(i.Noise_Sensor_GetLevel) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd) for RCC_AHBPeriphClockCmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_DeInit) for DMA_DeInit
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_Init) for DMA_Init
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_dma.o(i.DMA_Cmd) for DMA_Cmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_Init) for ADC_Init
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_RegularChannelConfig) for ADC_RegularChannelConfig
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_DMACmd) for ADC_DMACmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_Cmd) for ADC_Cmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_ResetCalibration) for ADC_ResetCalibration
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_GetResetCalibrationStatus) for ADC_GetResetCalibrationStatus
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_StartCalibration) for ADC_StartCalibration
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_GetCalibrationStatus) for ADC_GetCalibrationStatus
-    noise_sensor.o(i.Noise_Sensor_Init) refers to stm32f10x_adc.o(i.ADC_SoftwareStartConvCmd) for ADC_SoftwareStartConvCmd
-    noise_sensor.o(i.Noise_Sensor_Init) refers to noise_sensor.o(.data) for ADC_ConvertedValue
     main.o(i.Huadong_Smooth) refers to servo.o(i.Servo_SetAngle1) for Servo_SetAngle1
     main.o(i.Huadong_Smooth) refers to servo.o(i.Servo_SetAngle2) for Servo_SetAngle2
     main.o(i.Huadong_Smooth) refers to servo.o(i.Servo_SetAngle3) for Servo_SetAngle3
@@ -2473,11 +2473,11 @@ Memory Map of the image
     0x080022de   0x00000002   PAD
     0x080022e0   0x00000070   Code   RO          137    i.NVIC_Init         misc.o
     0x08002350   0x00000014   Code   RO          138    i.NVIC_PriorityGroupConfig  misc.o
-    0x08002364   0x00000064   Code   RO         3828    i.Noise_Sensor_GetDB  noise_sensor.o
-    0x080023c8   0x0000005c   Code   RO         3829    i.Noise_Sensor_GetData  noise_sensor.o
-    0x08002424   0x000000a8   Code   RO         3830    i.Noise_Sensor_GetFilteredADC  noise_sensor.o
-    0x080024cc   0x00000040   Code   RO         3831    i.Noise_Sensor_GetLevel  noise_sensor.o
-    0x0800250c   0x00000100   Code   RO         3832    i.Noise_Sensor_Init  noise_sensor.o
+    0x08002364   0x00000064   Code   RO         3757    i.Noise_Sensor_GetDB  noise_sensor.o
+    0x080023c8   0x0000005c   Code   RO         3758    i.Noise_Sensor_GetData  noise_sensor.o
+    0x08002424   0x000000a8   Code   RO         3759    i.Noise_Sensor_GetFilteredADC  noise_sensor.o
+    0x080024cc   0x00000040   Code   RO         3760    i.Noise_Sensor_GetLevel  noise_sensor.o
+    0x0800250c   0x00000100   Code   RO         3761    i.Noise_Sensor_Init  noise_sensor.o
     0x0800260c   0x00000028   Code   RO         3272    i.OLED_Clear        oled.o
     0x08002634   0x000000a8   Code   RO         3273    i.OLED_ClearArea    oled.o
     0x080026dc   0x00000060   Code   RO         3281    i.OLED_GPIO_Init    oled.o
@@ -2561,17 +2561,17 @@ Memory Map of the image
     0x080038da   0x00000004   Code   RO         3944    i.UsageFault_Handler  stm32f10x_it.o
     0x080038de   0x00000028   Code   RO         4267    i.__ARM_fpclassify  m_ws.l(fpclassify.o)
     0x08003906   0x0000000e   Code   RO         4144    i._is_digit         c_w.l(__printf_wp.o)
-    0x08003914   0x00000048   Code   RO         3757    i.bh1750_get_lux    bh1750.o
-    0x0800395c   0x00000070   Code   RO         3758    i.bh1750_init       bh1750.o
-    0x080039cc   0x00000022   Code   RO         3760    i.bh_cmd            bh1750.o
+    0x08003914   0x00000048   Code   RO         3797    i.bh1750_get_lux    bh1750.o
+    0x0800395c   0x00000070   Code   RO         3798    i.bh1750_init       bh1750.o
+    0x080039cc   0x00000022   Code   RO         3800    i.bh_cmd            bh1750.o
     0x080039ee   0x00000002   PAD
-    0x080039f0   0x000000a4   Code   RO         3762    i.bh_read_byte      bh1750.o
-    0x08003a94   0x00000020   Code   RO         3763    i.bh_sda_in         bh1750.o
-    0x08003ab4   0x00000024   Code   RO         3764    i.bh_sda_out        bh1750.o
-    0x08003ad8   0x00000040   Code   RO         3765    i.bh_start          bh1750.o
-    0x08003b18   0x00000040   Code   RO         3766    i.bh_stop           bh1750.o
-    0x08003b58   0x00000054   Code   RO         3767    i.bh_wait_ack       bh1750.o
-    0x08003bac   0x0000006c   Code   RO         3768    i.bh_write_byte     bh1750.o
+    0x080039f0   0x000000a4   Code   RO         3802    i.bh_read_byte      bh1750.o
+    0x08003a94   0x00000020   Code   RO         3803    i.bh_sda_in         bh1750.o
+    0x08003ab4   0x00000024   Code   RO         3804    i.bh_sda_out        bh1750.o
+    0x08003ad8   0x00000040   Code   RO         3805    i.bh_start          bh1750.o
+    0x08003b18   0x00000040   Code   RO         3806    i.bh_stop           bh1750.o
+    0x08003b58   0x00000054   Code   RO         3807    i.bh_wait_ack       bh1750.o
+    0x08003bac   0x0000006c   Code   RO         3808    i.bh_write_byte     bh1750.o
     0x08003c18   0x00000db8   Code   RO         3870    i.main              main.o
     0x080049d0   0x0000002c   Code   RO         4309    locale$$code        c_w.l(lc_ctype_c.o)
     0x080049fc   0x0000002c   Code   RO         4312    locale$$code        c_w.l(lc_numeric_c.o)
@@ -2622,7 +2622,7 @@ Memory Map of the image
     0x20000000   0x00000014   Data   RW         1805    .data               stm32f10x_rcc.o
     0x20000014   0x00000003   Data   RW         3546    .data               serial.o
     0x20000017   0x00000001   PAD
-    0x20000018   0x00000002   Data   RW         3833    .data               noise_sensor.o
+    0x20000018   0x00000002   Data   RW         3762    .data               noise_sensor.o
     0x2000001a   0x00000002   PAD
     0x2000001c   0x00000051   Data   RW         3873    .data               main.o
     0x2000006d   0x00000003   PAD

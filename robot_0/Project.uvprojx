@@ -732,6 +732,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\Input.h</FilePath>
             </File>
+            <File>
+              <FileName>noise_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\noise_sensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>bh1750.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\bh1750.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

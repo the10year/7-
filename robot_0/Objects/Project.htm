@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Fri May 22 15:38:16 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Fri May 22 18:56:48 2026
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1041,22 +1041,22 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[9e]"></a>Delay_us</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, delay.o(i.Delay_us))
-<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetFilteredADC
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_write_byte
+<BR><BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_write_byte
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_wait_ack
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_stop
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_start
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_read_byte
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetFilteredADC
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 </UL>
 
 <P><STRONG><a name="[ab]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_init
+<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_init
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_sda_out
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_sda_in
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Input_Init
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Init_TIM3
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Init
@@ -1487,8 +1487,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[aa]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_init
+<BR><BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_init
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Input_Init
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Init_TIM3
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Init
@@ -1832,10 +1832,10 @@ Global Symbols
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncasecmp
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetAll
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Huadong_Smooth
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_init
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_get_lux
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_Init
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Input_Init
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Servo_SetAngle8
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Servo_SetAngle7
@@ -2015,8 +2015,8 @@ Global Symbols
 <P><STRONG><a name="[15f]"></a>_fflt</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt), UNUSED)
 
 <P><STRONG><a name="[b8]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_get_lux
+<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_get_lux
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
 </UL>
 
 <P><STRONG><a name="[160]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -2127,6 +2127,15 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 
+<P><STRONG><a name="[b0]"></a>Noise_Sensor_GetFilteredADC</STRONG> (Thumb, 162 bytes, Stack size 104 bytes, noise_sensor.o(i.Noise_Sensor_GetFilteredADC))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Noise_Sensor_GetFilteredADC
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_us
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetDB
+</UL>
+
 <P><STRONG><a name="[10c]"></a>bh_cmd</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, bh1750.o(i.bh_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = bh_cmd &rArr; bh_write_byte &rArr; bh_sda_out &rArr; GPIO_Init
 </UL>
@@ -2220,15 +2229,6 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh1750_get_lux
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bh_cmd
-</UL>
-
-<P><STRONG><a name="[b0]"></a>Noise_Sensor_GetFilteredADC</STRONG> (Thumb, 162 bytes, Stack size 104 bytes, noise_sensor.o(i.Noise_Sensor_GetFilteredADC))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Noise_Sensor_GetFilteredADC
-</UL>
-<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_us
-</UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetData
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noise_Sensor_GetDB
 </UL>
 
 <P><STRONG><a name="[12a]"></a>_fadd1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, faddsub_clz.o(x$fpl$fadd), UNUSED)
