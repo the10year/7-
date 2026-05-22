@@ -6,7 +6,6 @@ void Servo_Init(void)
 {
 	PWM_Init();					//TIM2
 	PWM_Init_TIM3(); //TIM3
-	PWM4_Init();	//TIM4
 }
 
 
@@ -47,8 +46,4 @@ void Servo_SetAngle7(float Angle7)
 void Servo_SetAngle8(float Angle8)
 {
 	PWM_SetCompare4_TIM3(Angle8 / 180 * 2000 + 500);
-}
-void Servo_SetAngle9(float Angle9)
-{
-	PWM_SetCompare1_TIM1(Angle9 / 180 * 2000 + 500);
 }

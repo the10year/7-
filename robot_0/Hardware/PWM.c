@@ -121,47 +121,6 @@ void PWM_SetCompare4_TIM3(uint16_t Compare)
     TIM_SetCompare4(TIM3, Compare);
 }
 
-
-
-void PWM4_Init(void)
-{
-    /*1. 使能时钟（TIM1属于APB2总线）*/
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);    //复用功能时钟
-
-    /*2. GPIO初始化（PA8为复用推挽输出，对应TIM1_CH1）*/
-    GPIO_InitTypeDef GPIO_InitStructure;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-    /*3. 时基单元初始化*/
-    TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
-    TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-    TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInitStructure.TIM_Period = 20000 - 1;       //ARR=19999（20ms周期）
-    TIM_TimeBaseInitStructure.TIM_Prescaler = 72 - 1;       //PSC=71（1MHz计数频率）
-    TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;    //高级定时器无需重复计数
-    TIM_TimeBaseInit(TIM1, &TIM_TimeBaseInitStructure);
-
-    /*4. 输出比较初始化（通道1）*/
-    TIM_OCInitTypeDef TIM_OCInitStructure;
-    TIM_OCStructInit(&TIM_OCInitStructure);
-    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_Pulse = 0;                      //初始占空比0
-    TIM_OC1Init(TIM1, &TIM_OCInitStructure);
-
-    /*5. 高级定时器特有：使能主输出（MOE），否则无PWM输出*/
-    TIM_CtrlPWMOutputs(TIM1, ENABLE);
-
-    /*6. 使能TIM1*/
-    TIM_Cmd(TIM1, ENABLE);
-}
-
 // TIM1通道1占空比设置函数
 void PWM_SetCompare1_TIM1(uint16_t Compare)
 {

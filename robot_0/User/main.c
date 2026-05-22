@@ -2,12 +2,10 @@
 #include "Delay.h"        
 #include "OLED.h"          
 #include "LED.h"           
-#include "PWM.h"          
-#include "BOO.h"           
+#include "PWM.h"                   
 #include "Input.h"          
 #include "Servo.h"         
-#include "Serial.h"         
-#include "WS2812B.h"        
+#include "Serial.h"                
 #include <string.h>         
 #include <stdlib.h>        
 #include <stdio.h>        
@@ -16,7 +14,7 @@
 //基于STM32四足机器人(更新版)
 //行走步态:前进，后退，原地左转，原地右转
 //固定动作:招手，抬腿，展开，复位，摇摆，坐下
-//外设:红外线，电磁炮，舵机云台，WS2812B彩色灯光，蜂鸣器，指示灯
+//外设:蜂鸣器，指示灯
 //功能:离地检测，锂电池充放电
 //实时状态机 + 舵机时序控制 + 非阻塞延时 + 标志位管理
 
@@ -47,14 +45,8 @@ volatile float Angle5 = 0.0f;
 volatile float Angle6 = 180.0f;
 volatile float Angle7 = 0.0f;
 volatile float Angle8 = 180.0f;
-volatile float Angle9 = 100.0f;	// 云台舵机
 
-// 云台舵机控制参数
-volatile float ReceivedAngle9 = 100.0f;  // 目标角度
-const float MinServoStep = 0.5f;         // 最小调节步长
-const float MaxServoStep = 8.0f;         // 最大调节步长
-const float FastThreshold = 20.0f;       // 快速调节阈值
-const float SlowThreshold = 2.0f;        // 慢速调节阈值
+
 
 // 功能动作状态标志
 volatile uint8_t A4_State = 0;     
@@ -117,8 +109,7 @@ void ResetAll(void)
     // 舵机角度复位
     Angle1 = 100.0f; Angle2 = 80.0f; Angle3 = 90.0f; Angle4 = 90.0f;
     Angle5 = 0.0f;  Angle6 = 180.0f; Angle7 = 0.0f; Angle8 = 180.0f;
-    Angle9 = 100.0f;
-    ReceivedAngle9 = 100.0f;
+    
 
     // 所有动作状态复位
     ActionState = 0;
@@ -194,8 +185,6 @@ int main(void)
     Servo_Init();
     Serial_Init();
     Input_Init();
-    WS2812B_Init();
-    BOO_Init();
     OLED_Init();
     LED_Init();
     LED_StartBlink();
@@ -214,7 +203,7 @@ int main(void)
         Servo_SetAngle6(Angle6);
         Servo_SetAngle7(Angle7);
         Servo_SetAngle8(Angle8);
-        Servo_SetAngle9(Angle9);
+
 
         /************************ 串口指令解析处理 ************************/
         if (Serial_RxFlag == 1)
@@ -223,12 +212,9 @@ int main(void)
             float num = strtof(Serial_RxPacket, &endptr);
 
             // 云台角度指令（0-180数字）
-            if (endptr != Serial_RxPacket && *endptr == '\0' && num >= 0.0f && num <= 180.0f)
-            {
-                ReceivedAngle9 = num;
-            }
+        
             // 复位指令
-            else if (strncasecmp(Serial_RxPacket, "REST", 4) == 0)
+            if (strncasecmp(Serial_RxPacket, "REST", 4) == 0)
             {
                 ResetAll();
                 Forward_State = 0;
@@ -366,92 +352,13 @@ int main(void)
                 A4_State = 0;
                 A5_State = 0;
             }
-            // 红外控制
-            else if (strncasecmp(Serial_RxPacket, "HW", 2) == 0)
-            {
-                if (HW_State == 0)
-                {
-                    HW_ON();
-                    HW_State = 1;
-                }
-                else
-                {
-                    HW_State = 0;
-                    HW_OFF();
-                }
-            }
-            // 炫彩灯模式控制
-            else if (strncasecmp(Serial_RxPacket, "XNLED", 5) == 0)
-            {
-                if (XNLED_State == 0)
-                {
-                    FlowFrom10To9_AllOn(255, 20, 0, 60000);
-                    WS2812_Update();
-                    XNLED_State = 1;
-                }
-                else
-                {
-                    ColorFlowFrom10To9_LargeChange(80000);
-                    WS2812_Update();
-                    XNLED_State = 0;
-                }
-            }
-            // 照明灯控制
-            else if (strncasecmp(Serial_RxPacket, "ZMLED", 5) == 0)
-            {
-                if (ZMLED_State == 0)
-                {
-                    All_LED_On(200, 200, 200);
-                    WS2812_Update();
-                    ZMLED_State = 1;
-                }
-                else
-                {
-                    All_LED_On(0, 0, 0);
-                    WS2812_Update();
-                    ZMLED_State = 0;
-                }
-            }
-	        else if (strncasecmp(Serial_RxPacket, "BOO", 3) == 0) 
-            {
-                Color_Wipe(255, 20, 0, 50000);
-                WS2812_Update();
-                BOO_ON();
-                booOffCnt = 16;
-            }
-
             // 清空串口缓冲区，清除接收标志
             memset(Serial_RxPacket, 0, sizeof(Serial_RxPacket));
             Serial_RxFlag = 0;
         }
 
-        /************************ 云台舵机平滑调节 ************************/
-        float diff = ReceivedAngle9 - Angle9;
-        float absDiff = fabs(diff);
-        float servoStep = MinServoStep;
-
-        if (absDiff >= FastThreshold) servoStep = MaxServoStep;
-        else if (absDiff > SlowThreshold)
-        {
-            servoStep = MinServoStep + (MaxServoStep - MinServoStep) *
-                       (absDiff - SlowThreshold) / (FastThreshold - SlowThreshold);
-        }
-
-        if (diff > servoStep)
-        {
-            Angle9 += servoStep;
-            if (Angle9 > 180.0f) Angle9 = 180.0f;
-        }
-        else if (diff < -servoStep)
-        {
-            Angle9 -= servoStep;
-            if (Angle9 < 0.0f) Angle9 = 0.0f;
-        }
-        else if (absDiff > 0.1f)
-        {
-            Angle9 = ReceivedAngle9;
-        }
-
+       
+        
         /************************ 左右摇摆动作执行 ************************/
         if (ActionState != 0)
         {
@@ -700,13 +607,6 @@ if (Right_State != 0)
         {
             Huadong_Smooth();
         }
-	  
-        if (booOffCnt > 0)
-        {
-            booOffCnt--;
-            if (booOffCnt == 0) BOO_OFF();
-        }
-
         // 主循环延时25ms
         Delay_ms(25);
     }

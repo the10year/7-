@@ -1,7 +1,7 @@
 .\objects\boo.o: Hardware\BOO.c
 .\objects\boo.o: .\Start\stm32f10x.h
 .\objects\boo.o: .\Start\core_cm3.h
-.\objects\boo.o: F:\keilstm32\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\boo.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\boo.o: .\Start\system_stm32f10x.h
 .\objects\boo.o: .\User\stm32f10x_conf.h
 .\objects\boo.o: .\Library\stm32f10x_adc.h
