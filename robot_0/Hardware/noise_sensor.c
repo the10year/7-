@@ -1,6 +1,7 @@
 #include "noise_sensor.h"
 #include "stm32f10x_adc.h"
-
+#include "stm32f10x.h"
+#include "Delay.h"
 #define FILTER_SAMPLES       20
 #define FILTER_REMOVE_MIN    5
 #define FILTER_REMOVE_MAX    5
@@ -66,7 +67,7 @@ static unsigned int Noise_Sensor_GetFilteredADC(void) {
     for(i = 0; i < FILTER_SAMPLES; i++) {
         samples[i] = ADC_ConvertedValue;
         sum += samples[i];
-        Delay(1);
+        Delay_us(1);
     }
     
     for(i = 0; i < FILTER_SAMPLES - 1; i++) {

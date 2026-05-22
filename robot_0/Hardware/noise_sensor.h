@@ -1,10 +1,9 @@
 #ifndef __NOISE_SENSOR_H
 #define __NOISE_SENSOR_H
 
-#include "stm32f10x.h"
 
-#define NOISE_ADC_CHANNEL    ADC_Channel_6
-#define NOISE_ADC_PIN        GPIO_Pin_6
+#define NOISE_ADC_CHANNEL    ADC_Channel_5      // ? PA5
+#define NOISE_ADC_PIN        GPIO_Pin_5         // ? PA5
 
 typedef enum {
     NOISE_LEVEL_QUIET = 0,

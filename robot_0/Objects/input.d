@@ -1,7 +1,7 @@
 .\objects\input.o: Hardware\Input.c
 .\objects\input.o: .\Start\stm32f10x.h
 .\objects\input.o: .\Start\core_cm3.h
-.\objects\input.o: E:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\input.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\input.o: .\Start\system_stm32f10x.h
 .\objects\input.o: .\User\stm32f10x_conf.h
 .\objects\input.o: .\Library\stm32f10x_adc.h

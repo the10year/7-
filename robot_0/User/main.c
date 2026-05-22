@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "bh1750.h"
+#include "noise_sensor.h"
 
 extern char Serial_RxPacket[64];
 extern uint8_t Serial_RxFlag;
@@ -60,9 +61,15 @@ volatile uint16_t Right_DelayCnt = 0;
 const uint16_t RIGHT_DELAY_TIME = 12;
 volatile uint8_t Right_Step = 0;
 
+/* BH1750 光照传感器 */
 volatile uint16_t bh1750_cnt = 0;
 const uint16_t BH1750_READ_INTERVAL = 40;
 float lux_val = 0;
+
+/* LM2904 噪声传感器 */
+volatile uint16_t noise_cnt = 0;
+const uint16_t NOISE_READ_INTERVAL = 40;
+NoiseData_TypeDef noise_data;
 
 volatile uint8_t LED_State = 0;
 volatile uint16_t LED_DelayCnt = 0;
@@ -124,6 +131,7 @@ int main(void)
     LED_Init();
     LED_StartBlink();
     bh1750_init();
+    Noise_Sensor_Init();      // ← 噪声传感器初始化
     ResetAll();
 
     while (1)
@@ -141,63 +149,31 @@ int main(void)
         if (Serial_RxFlag == 1)
         {
             if (strncasecmp(Serial_RxPacket, "REST", 4) == 0)
-            {
-                ResetAll(); Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                Serial_SendString("OK\r\n");
-            }
+            { ResetAll(); Forward_State=0; Back_State=0; Left_State=0; Right_State=0; Serial_SendString("OK\r\n"); }
             else if (strncasecmp(Serial_RxPacket, "ZK", 2) == 0)
-            {
-                ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;
-                A4_State=0;A5_State=0;
-            }
+            { ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
+              Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180; A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "ZX", 2) == 0)
-            {
-                ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=90;Angle6=90;Angle7=90;Angle8=90;
-                A4_State=0;A5_State=0;
-            }
+            { ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
+              Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=90;Angle6=90;Angle7=90;Angle8=90; A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "YB", 2) == 0)
-            {
-                ActionState=1; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                ActionDelayCnt=0; A4_State=0;A5_State=0;
-            }
+            { ActionState=1; Forward_State=0; Back_State=0; Left_State=0; Right_State=0; ActionDelayCnt=0; A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "ZS", 2) == 0)
-            {
-                ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                if(A4_State==0)
-                { Angle1=160;Angle2=45;Angle3=110;Angle4=70;Angle5=20;Angle6=35;Angle7=20;Angle8=160;A4_State=1; }
-                else
-                { Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;A4_State=0; }
-            }
+            { ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
+              if(A4_State==0){Angle1=160;Angle2=45;Angle3=110;Angle4=70;Angle5=20;Angle6=35;Angle7=20;Angle8=160;A4_State=1;}
+              else{Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;A4_State=0;} }
             else if (strncasecmp(Serial_RxPacket, "TJ", 2) == 0)
-            {
-                ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
-                if(A5_State==0)
-                { Angle1=90;Angle2=90;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=135;Angle8=180;A5_State=1; }
-                else
-                { Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;A5_State=0; }
-            }
+            { ActionState=0; Forward_State=0; Back_State=0; Left_State=0; Right_State=0;
+              if(A5_State==0){Angle1=90;Angle2=90;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=135;Angle8=180;A5_State=1;}
+              else{Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;A5_State=0;} }
             else if (strncasecmp(Serial_RxPacket, "UP", 2) == 0)
-            {
-                ActionState=0;Back_State=0;Left_State=0;Right_State=0;
-                Forward_State=1;Forward_Step=1;Forward_DelayCnt=0;A4_State=0;A5_State=0;
-            }
+            { ActionState=0;Back_State=0;Left_State=0;Right_State=0;Forward_State=1;Forward_Step=1;Forward_DelayCnt=0;A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "BACK", 4) == 0)
-            {
-                ActionState=0;Forward_State=0;Left_State=0;Right_State=0;
-                Back_State=1;Back_Step=1;Back_DelayCnt=0;A4_State=0;A5_State=0;
-            }
+            { ActionState=0;Forward_State=0;Left_State=0;Right_State=0;Back_State=1;Back_Step=1;Back_DelayCnt=0;A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "LEFT", 4) == 0)
-            {
-                ActionState=0;Forward_State=0;Back_State=0;Right_State=0;
-                Left_State=1;Left_Step=1;Left_DelayCnt=0;A4_State=0;A5_State=0;
-            }
+            { ActionState=0;Forward_State=0;Back_State=0;Right_State=0;Left_State=1;Left_Step=1;Left_DelayCnt=0;A4_State=0;A5_State=0; }
             else if (strncasecmp(Serial_RxPacket, "RIGHT", 5) == 0)
-            {
-                ActionState=0;Forward_State=0;Back_State=0;Left_State=0;
-                Right_State=1;Right_Step=1;Right_DelayCnt=0;A4_State=0;A5_State=0;
-            }
+            { ActionState=0;Forward_State=0;Back_State=0;Left_State=0;Right_State=1;Right_Step=1;Right_DelayCnt=0;A4_State=0;A5_State=0; }
             memset(Serial_RxPacket, 0, sizeof(Serial_RxPacket));
             Serial_RxFlag = 0;
         }
@@ -208,31 +184,16 @@ int main(void)
             ActionDelayCnt++;
             switch(ActionState)
             {
-                case 1:
-                    if(Angle5>0)Angle5-=ServoSwingStep;
-                    if(Angle7>0)Angle7-=ServoSwingStep;
-                    if(Angle6<180)Angle6+=ServoSwingStep;
-                    if(Angle8<180)Angle8+=ServoSwingStep;
-                    if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=2;ActionDelayCnt=0;}
-                    break;
-                case 2:
-                    if(Angle5<40)Angle5+=ServoSwingStep;
-                    if(Angle7<40)Angle7+=ServoSwingStep;
-                    if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=3;ActionDelayCnt=0;}
-                    break;
-                case 3:
-                    if(Angle5>0)Angle5-=ServoSwingStep;
-                    if(Angle7>0)Angle7-=ServoSwingStep;
-                    if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=4;ActionDelayCnt=0;}
-                    break;
-                case 4:
-                    if(Angle6>140)Angle6-=ServoSwingStep;
-                    if(Angle8>140)Angle8-=ServoSwingStep;
-                    if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=1;ActionDelayCnt=0;}
-                    break;
-                default:
-                    ActionState=0;ActionDelayCnt=0;
-                    break;
+                case 1: if(Angle5>0)Angle5-=ServoSwingStep;if(Angle7>0)Angle7-=ServoSwingStep;
+                        if(Angle6<180)Angle6+=ServoSwingStep;if(Angle8<180)Angle8+=ServoSwingStep;
+                        if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=2;ActionDelayCnt=0;} break;
+                case 2: if(Angle5<40)Angle5+=ServoSwingStep;if(Angle7<40)Angle7+=ServoSwingStep;
+                        if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=3;ActionDelayCnt=0;} break;
+                case 3: if(Angle5>0)Angle5-=ServoSwingStep;if(Angle7>0)Angle7-=ServoSwingStep;
+                        if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=4;ActionDelayCnt=0;} break;
+                case 4: if(Angle6>140)Angle6-=ServoSwingStep;if(Angle8>140)Angle8-=ServoSwingStep;
+                        if(ActionDelayCnt>=ACTION_DELAY_TIME){ActionState=1;ActionDelayCnt=0;} break;
+                default: ActionState=0;ActionDelayCnt=0; break;
             }
         }
 
@@ -241,8 +202,7 @@ int main(void)
         {
             Forward_DelayCnt++;
             if(Forward_DelayCnt>=FORWARD_DELAY_TIME){Forward_DelayCnt=0;Forward_Step++;if(Forward_Step>4)Forward_Step=1;}
-            switch(Forward_Step)
-            {
+            switch(Forward_Step){
                 case 1:Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=150;Angle7=30;Angle8=180;break;
                 case 2:Angle1=135;Angle2=15;Angle3=75;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;break;
                 case 3:Angle1=135;Angle2=15;Angle3=75;Angle4=135;Angle5=30;Angle6=180;Angle7=0;Angle8=150;break;
@@ -255,8 +215,7 @@ int main(void)
         {
             Back_DelayCnt++;
             if(Back_DelayCnt>=BACK_DELAY_TIME){Back_DelayCnt=0;Back_Step++;if(Back_Step>4)Back_Step=1;}
-            switch(Back_Step)
-            {
+            switch(Back_Step){
                 case 1:Angle1=135;Angle2=45;Angle3=45;Angle4=135;Angle5=0;Angle6=150;Angle7=30;Angle8=180;break;
                 case 2:Angle1=135;Angle2=75;Angle3=15;Angle4=135;Angle5=0;Angle6=180;Angle7=0;Angle8=180;break;
                 case 3:Angle1=135;Angle2=75;Angle3=15;Angle4=135;Angle5=30;Angle6=180;Angle7=0;Angle8=150;break;
@@ -269,8 +228,7 @@ int main(void)
         {
             Left_DelayCnt++;
             if(Left_DelayCnt>=LEFT_DELAY_TIME){Left_DelayCnt=0;Left_Step++;if(Left_Step>4)Left_Step=1;}
-            switch(Left_Step)
-            {
+            switch(Left_Step){
                 case 1:Angle1=150;Angle2=30;Angle3=30;Angle4=150;Angle5=30;Angle6=180;Angle7=0;Angle8=150;break;
                 case 2:Angle1=165;Angle2=15;Angle3=15;Angle4=165;Angle5=0;Angle6=180;Angle7=0;Angle8=180;break;
                 case 3:Angle1=165;Angle2=15;Angle3=15;Angle4=165;Angle5=0;Angle6=150;Angle7=30;Angle8=180;break;
@@ -283,8 +241,7 @@ int main(void)
         {
             Right_DelayCnt++;
             if(Right_DelayCnt>=RIGHT_DELAY_TIME){Right_DelayCnt=0;Right_Step++;if(Right_Step>4)Right_Step=1;}
-            switch(Right_Step)
-            {
+            switch(Right_Step){
                 case 1:Angle1=150;Angle2=30;Angle3=30;Angle4=150;Angle5=0;Angle6=150;Angle7=30;Angle8=180;break;
                 case 2:Angle1=165;Angle2=15;Angle3=15;Angle4=165;Angle5=0;Angle6=180;Angle7=0;Angle8=180;break;
                 case 3:Angle1=165;Angle2=15;Angle3=15;Angle4=165;Angle5=30;Angle6=180;Angle7=0;Angle8=150;break;
@@ -292,15 +249,55 @@ int main(void)
             }
         }
 
-        /************************ BH1750 光照读取 + OLED显示 ************************/
+        /************************ BH1750 光照 + LM2904 噪声 并列显示 ************************/
         bh1750_cnt++;
+        noise_cnt++;
         if (bh1750_cnt >= BH1750_READ_INTERVAL)
         {
             bh1750_cnt = 0;
             lux_val = bh1750_get_lux();
-            OLED_Clear();
-            OLED_Printf(0, 0, 8, "Lux:%.0f", lux_val);
-            OLED_Update();
+        }
+        if (noise_cnt >= NOISE_READ_INTERVAL)
+        {
+            noise_cnt = 0;
+            Noise_Sensor_GetData(&noise_data);
+        }
+
+        /* 每次都刷新显示（两个传感器数据在各自定时中更新） */
+        {
+            static uint8_t oled_cnt = 0;
+            oled_cnt++;
+            if (oled_cnt >= 4)    // 每 100ms 刷新一次 OLED
+            {
+                oled_cnt = 0;
+
+                OLED_Clear();
+
+                /* 第一行：光照 */
+                OLED_Printf(0, 0, 8, "Lux: %.0f", lux_val);
+
+                /* 第二行：噪声分贝 */
+                OLED_Printf(0, 16, 8, "dB: %.1f", noise_data.db_value);
+
+                /* 第三行：噪声等级 */
+                switch (noise_data.level)
+                {
+                    case NOISE_LEVEL_QUIET:
+                        OLED_Printf(0, 32, 8, "Level: Quiet");
+                        break;
+                    case NOISE_LEVEL_NORMAL:
+                        OLED_Printf(0, 32, 8, "Level: Normal");
+                        break;
+                    case NOISE_LEVEL_LOUD:
+                        OLED_Printf(0, 32, 8, "Level: Loud!");
+                        break;
+                    case NOISE_LEVEL_VERY_LOUD:
+                        OLED_Printf(0, 32, 8, "Level: V.Loud");
+                        break;
+                }
+
+                OLED_Update();
+            }
         }
 
         /************************ LED闪烁控制 ************************/

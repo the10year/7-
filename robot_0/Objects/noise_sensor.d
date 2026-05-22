@@ -1,13 +1,14 @@
 .\objects\noise_sensor.o: Hardware\noise_sensor.c
 .\objects\noise_sensor.o: Hardware\noise_sensor.h
+.\objects\noise_sensor.o: .\Library\stm32f10x_adc.h
 .\objects\noise_sensor.o: .\Start\stm32f10x.h
 .\objects\noise_sensor.o: .\Start\core_cm3.h
-.\objects\noise_sensor.o: E:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\noise_sensor.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\noise_sensor.o: .\Start\system_stm32f10x.h
 .\objects\noise_sensor.o: .\User\stm32f10x_conf.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_adc.h
-.\objects\noise_sensor.o: .\Start\stm32f10x.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_bkp.h
+.\objects\noise_sensor.o: .\Start\stm32f10x.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_can.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_cec.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_crc.h
@@ -29,3 +30,4 @@
 .\objects\noise_sensor.o: .\Library\stm32f10x_usart.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_wwdg.h
 .\objects\noise_sensor.o: .\Library\misc.h
+.\objects\noise_sensor.o: .\System\Delay.h
