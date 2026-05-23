@@ -465,11 +465,11 @@ ARM Macro Assembler    Page 8
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_stm32f10x_md.d -o.\objects\startup_stm32f10x_md.
-o -IE:\百度网盘\disk\基于STM32的四足机器人\蓝牙遥控器程序\RTE -IE:\keil5\ARM\PA
-CK\Keil\STM32F1xx_DFP\1.1.0\Device\Include -IE:\keil5\ARM\CMSIS\Include --prede
-fine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VER
-SION SETA 520" --predefine="STM32F10X_MD SETA 1" --list=.\listings\startup_stm3
-2f10x_md.lst Start\startup_stm32f10x_md.s
+o -ID:\ruitong\四足机器人\7-\robot_1\RTE -ID:\ruitong\ARM\PACK\Keil\STM32F1xx_D
+FP\1.1.0\Device\Include -ID:\ruitong\ARM\CMSIS\Include --predefine="__EVAL SETA
+ 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 520" --
+predefine="STM32F10X_MD SETA 1" --list=.\listings\startup_stm32f10x_md.lst Star
+t\startup_stm32f10x_md.s
 
 
 

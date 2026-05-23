@@ -3,7 +3,7 @@
 .\objects\noise_sensor.o: .\Library\stm32f10x_adc.h
 .\objects\noise_sensor.o: .\Start\stm32f10x.h
 .\objects\noise_sensor.o: .\Start\core_cm3.h
-.\objects\noise_sensor.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\noise_sensor.o: D:\ruitong\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\noise_sensor.o: .\Start\system_stm32f10x.h
 .\objects\noise_sensor.o: .\User\stm32f10x_conf.h
 .\objects\noise_sensor.o: .\Library\stm32f10x_adc.h

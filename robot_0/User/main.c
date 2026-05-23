@@ -175,7 +175,7 @@ float dist_val = 0;                            // 当前距离值（单位：cm�
  *   - 串口发送 "MANU" 可切换为手动模式
  *   - 串口发送 "AUTO" 可切换回自动模式
  */
-volatile uint8_t auto_mode = 1;                // 0=手动模式  1=自动避障模式
+volatile uint8_t auto_mode = 0;                // 0=手动模式  1=自动避障模式
 #define DIST_THRESHOLD  10.0f                   // 避障距离阈值（单位：cm）
 
 /* ======================== LED 闪烁控制 ======================== */
@@ -237,7 +237,7 @@ void ResetAll(void)
     Right_Step = 0;           // 清除右转步骤
 
     /* 保持自动避障模式（不重置） */
-    auto_mode = 1;            // 保持自动模式
+    auto_mode = 0;            // 保持自动模式
 }
 
 /**
