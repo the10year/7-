@@ -1,7 +1,7 @@
 .\objects\main.o: User\main.c
 .\objects\main.o: .\Start\stm32f10x.h
 .\objects\main.o: .\Start\core_cm3.h
-.\objects\main.o: D:\ruitong\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: .\Start\system_stm32f10x.h
 .\objects\main.o: .\User\stm32f10x_conf.h
 .\objects\main.o: .\Library\stm32f10x_adc.h
@@ -36,10 +36,10 @@
 .\objects\main.o: .\Hardware\Input.h
 .\objects\main.o: .\Hardware\Servo.h
 .\objects\main.o: .\Hardware\Serial.h
-.\objects\main.o: D:\ruitong\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\main.o: D:\ruitong\ARM\ARMCC\Bin\..\include\string.h
-.\objects\main.o: D:\ruitong\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\main.o: D:\ruitong\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: .\Hardware\bh1750.h
 .\objects\main.o: .\Hardware\noise_sensor.h
 .\objects\main.o: .\Hardware\hcsr04.h

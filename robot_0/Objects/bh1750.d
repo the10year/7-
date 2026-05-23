@@ -2,7 +2,7 @@
 .\objects\bh1750.o: .\Library\stm32f10x_adc.h
 .\objects\bh1750.o: .\Start\stm32f10x.h
 .\objects\bh1750.o: .\Start\core_cm3.h
-.\objects\bh1750.o: D:\ruitong\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\bh1750.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\bh1750.o: .\Start\system_stm32f10x.h
 .\objects\bh1750.o: .\User\stm32f10x_conf.h
 .\objects\bh1750.o: .\Library\stm32f10x_adc.h
