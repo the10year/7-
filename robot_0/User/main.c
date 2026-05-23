@@ -175,7 +175,7 @@ float dist_val = 0;                            // 当前距离值（单位：cm�
  *   - 串口发送 "MANU" 可切换为手动模式
  *   - 串口发送 "AUTO" 可切换回自动模式
  */
-volatile uint8_t auto_mode = 1;                // 0=手动模式  1=自动避障模式
+volatile uint8_t auto_mode = 0;                // 0=手动模式  1=自动避障模式
 #define DIST_THRESHOLD  10.0f                   // 避障距离阈值（单位：cm）
 
 /* ======================== LED 闪烁控制 ======================== */
@@ -237,7 +237,7 @@ void ResetAll(void)
     Right_Step = 0;           // 清除右转步骤
 
     /* 保持自动避障模式（不重置） */
-    auto_mode = 1;            // 保持自动模式
+    auto_mode = 0;            // 保持自动模式
 }
 
 /**
@@ -585,49 +585,39 @@ int main(void)
 
         /**
          * ============================================================
-         * 3. 超声波避障自动控制逻辑
+         * 3. 超声波避障自动控制逻辑（仅前进时启用）
          * ============================================================
-         * 仅在自动模式（auto_mode == 1）下生效
-         * 判断逻辑：
-         *   距离有效（> 0）且 < 10cm → 有障碍物 → 自动左转
-         *   距离 >= 10cm 或传感器异常 → 无障碍 → 恢复前进
+         * 只有正在前进（Forward_State != 0）时才检测障碍物
+         * 距离 < 10cm → 停止前进，自动左转
+         * 正在左转 + 距离 >= 10cm → 停止左转，恢复前进
+         * 未下达前进指令时，避障功能不介入
          */
-        if (auto_mode == 1)
+        if (Forward_State != 0)
         {
+            /* 正在前进，检测到障碍物 → 左转避障 */
             if (dist_val > 0 && dist_val < DIST_THRESHOLD)
             {
-                /*
-                 * 距离 < 10cm：前方有障碍物
-                 * 停止前进和所有其他动作，切换到左转
-                 */
-                if (Left_State == 0)                  // 当前不在左转状态才切换
-                {
-                    Forward_State = 0;                // 停止前进
-                    Back_State = 0;                   // 停止后退
-                    Right_State = 0;                  // 停止右转
-                    ActionState = 0;                  // 停止摇摆
-                    Left_State = 1;                   // 启动左转
-                    Left_Step = 1;                    // 从第一步开始
-                    Left_DelayCnt = 0;                // 重置计时
-                }
+                Forward_State = 0;
+                Back_State = 0;
+                Right_State = 0;
+                ActionState = 0;
+                Left_State = 1;
+                Left_Step = 1;
+                Left_DelayCnt = 0;
             }
-            else if (dist_val >= DIST_THRESHOLD || dist_val < 0)
+        }
+        else if (Left_State != 0)
+        {
+            /* 因避障正在左转，障碍消失 → 恢复前进 */
+            if (dist_val >= DIST_THRESHOLD || dist_val < 0)
             {
-                /*
-                 * 距离 >= 10cm：前方无障碍
-                 * 停止左转和其他动作，恢复前进
-                 * dist_val < 0 表示传感器异常（超时），也恢复前进
-                 */
-                if (Forward_State == 0)               // 当前不在前进状态才切换
-                {
-                    Left_State = 0;                   // 停止左转
-                    Back_State = 0;                   // 停止后退
-                    Right_State = 0;                  // 停止右转
-                    ActionState = 0;                  // 停止摇摆
-                    Forward_State = 1;                // 恢复前进
-                    Forward_Step = 1;                 // 从第一步开始
-                    Forward_DelayCnt = 0;             // 重置计时
-                }
+                Left_State = 0;
+                Back_State = 0;
+                Right_State = 0;
+                ActionState = 0;
+                Forward_State = 1;
+                Forward_Step = 1;
+                Forward_DelayCnt = 0;
             }
         }
 
