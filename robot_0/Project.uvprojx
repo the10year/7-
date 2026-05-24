@@ -334,7 +334,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\FreeRTOS</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -786,6 +786,51 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FreeRTOS</GroupName>
+          <Files>
+            <File>
+              <FileName>error_handler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FreeRTOS\error_handler.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory_pool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FreeRTOS\memory_pool.c</FilePath>
+            </File>
+            <File>
+              <FileName>tasks_impl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FreeRTOS\tasks_impl.c</FilePath>
+            </File>
+            <File>
+              <FileName>error_handler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FreeRTOS\error_handler.h</FilePath>
+            </File>
+            <File>
+              <FileName>memory_pool.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FreeRTOS\memory_pool.h</FilePath>
+            </File>
+            <File>
+              <FileName>scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FreeRTOS\scheduler.c</FilePath>
+            </File>
+            <File>
+              <FileName>scheduler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FreeRTOS\scheduler.h</FilePath>
+            </File>
+            <File>
+              <FileName>tasks_def.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FreeRTOS\tasks_def.h</FilePath>
             </File>
           </Files>
         </Group>

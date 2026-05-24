@@ -38,6 +38,10 @@
 ".\objects\hcsr04.o"
 ".\objects\main.o"
 ".\objects\stm32f10x_it.o"
+".\objects\error_handler.o"
+".\objects\memory_pool.o"
+".\objects\tasks_impl.o"
+".\objects\scheduler.o"
 --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
