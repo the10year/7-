@@ -37,4 +37,5 @@
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\OLED_Data.h
 .\objects\main.o: .\Hardware\noise_sensor.h
+.\objects\main.o: .\Hardware\LED.h
 .\objects\main.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h

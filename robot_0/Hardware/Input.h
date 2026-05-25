@@ -3,6 +3,5 @@
 
 void Input_Init(void);
 uint8_t Input_GetNum(void);
-uint8_t Input_GetInfrared(void);
 
 #endif
